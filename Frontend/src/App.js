@@ -1,7 +1,7 @@
 import './App.css';
 import Input from './components/input';
 import Button from './components/button';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
         <Input
           handleChange={handleChange}
           value={input}
-          
+
         />
 
         <Button
@@ -38,7 +38,7 @@ function App() {
         />
 
         <h3>lists</h3>
-        {input}
+
 
       </div>
     </div>
