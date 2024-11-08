@@ -7,10 +7,16 @@ function App() {
 
   const [input, setInput] = useState('');
 
+  function capitalize(string) 
+  {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+
+  }
+
 
   const handleChange = (e) => {
     e.preventDefault();
-    setInput(e.target.value.trimStart().toUpperCase(0))
+    setInput(capitalize(e.target.value.trimStart()))
 
   }
 
