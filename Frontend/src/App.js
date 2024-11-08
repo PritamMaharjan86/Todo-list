@@ -9,25 +9,29 @@ function App() {
 
 
   const handleChange = (e) => {
-    setInput(e.target.value)
+    e.preventDefault();
+    setInput(e.target.value.trimStart().toUpperCase(0))
 
   }
 
 
   const handleSubmit = (e) => {
-    console.log(input)
+    setInput('');
+    console.log('working', input)
 
   }
 
 
+
   return (
-    <div className="text-lg text-center mx-auto w-1/4 p-10 font-TNanti">
+    <div className="text-lg text-center mx-auto w-1/2max-w-md p-10 font-TNanti ">
       <div className='border-2 border-black p-5 w-96 h-full rounded-lg shadow-2xl bg-slate-100'>
         <h1>Todo List</h1>
 
         <Input
-          handleChange={handleChange}
+          onChange={handleChange}
           value={input}
+          type='text'
 
         />
 

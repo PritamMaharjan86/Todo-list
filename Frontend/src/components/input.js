@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ handleChange, input }) => {
+const Input = ({ onChange, value, type }) => {
 
 
 
@@ -10,9 +10,9 @@ const Input = ({ handleChange, input }) => {
                 <input
                     className='border-2 border-black mt-10 p-1 rounded-lg font-TNanti '
                     placeholder='What'
-                    value={input}
-                    onChange={handleChange}
-                    type='text'
+                    value={value}
+                    onChange={onChange}
+                    type={type}
                 />
 
             </div>
