@@ -7,8 +7,7 @@ function App() {
 
   const [input, setInput] = useState('');
 
-  function capitalize(string) 
-  {
+  function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 
   }
@@ -21,9 +20,29 @@ function App() {
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     setInput('');
-    console.log('working', input)
+
+    try {
+      const url = 'http://localhost:3001/Todo/list';
+      const response = await fetch(url,{
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json"
+        }
+      })
+
+      const result = await response.json();
+      
+      console.log("result is ", result)
+
+
+
+    } catch (error){
+      console.log('Error', error)
+
+    }
+
 
   }
 
@@ -48,7 +67,7 @@ function App() {
         />
 
         <h3>lists</h3>
-      
+
 
 
       </div>
