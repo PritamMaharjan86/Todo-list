@@ -4,72 +4,69 @@ import Button from './components/button';
 import React, { useState } from 'react';
 
 function App() {
-
   const [input, setInput] = useState('');
+  const [todos, setTodos] = useState([]);
 
-  function capitalize(string) {
+
+  const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-
-  }
+  };
 
 
   const handleChange = (e) => {
     e.preventDefault();
-    setInput(capitalize(e.target.value.trimStart()))
-
-  }
-
-
-  const handleSubmit = async(e) => {
-    setInput('');
-
-    try {
-      const url = 'http://localhost:3001/Todo/list';
-      const response = await fetch(url,{
-        method: "POST",
-        headers:{
-          "Content-Type": "application/json"
-        }
-      })
-
-      const result = await response.json();
-      
-      console.log("result is ", result)
+    setInput(capitalize(e.target.value.trimStart()));
+  };
 
 
 
-    } catch (error){
-      console.log('Error', error)
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    if (!input.trim()) {
+      alert('Please enter a todo item.');
+      return;
     }
 
 
-  }
+    const newTodo = {
+      id: Date.now(),
+      content: input.trim(), 
+      completed: false, 
+    };
+
+    setTodos([...todos, newTodo]);
+    setInput('');
+  };
 
 
 
   return (
     <div className="text-lg text-center font-TNanti flex justify-center items-center ">
-      <div className='border-2 border-black p-10 h-full rounded-lg shadow-2xl bg-slate-100'>
-        <h1>Todo List</h1>
+      <div className="border-2 border-black p-10 h-full rounded-lg shadow-2xl bg-slate-100">
+        <h1 className="text-2xl font-bold mb-4">Todo List</h1>
 
-        <Input
-          onChange={handleChange}
-          value={input}
-          type='text'
+        <form onSubmit={handleSubmit} className="mb-4">
+          <Input
+            onChange={handleChange}
+            value={input}
+            type="text"
+            placeholder="Enter a todo item"
+          />
 
-        />
+          <Button
+            label="Post"
+            type="submit"
+            onClick={handleSubmit}
+          />
+        </form>
 
-        <Button
-          label="Post"
-          onClick={handleSubmit}
-
-        />
-
-        <h3>lists</h3>
-
-
-
+        <h3 className="text-xl font-semibold mb-2">List of Todos:</h3>
+        <ul className="list-disc list-inside text-left">
+          {todos.map((todo) => (
+            <li key={todo._id}>{todo.content}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
