@@ -18,6 +18,12 @@ function App() {
     setInput(capitalize(e.target.value.trimStart()));
   };
 
+  const handleDone = (e)=>
+    {
+      
+    }
+
+
 
 
   const handleSubmit = (e) => {
@@ -28,11 +34,12 @@ function App() {
       return;
     }
 
+  
 
     const newTodo = {
       id: Date.now(),
-      content: input.trim(), 
-      completed: false, 
+      content: input.trim(),
+      completed: false,
     };
 
     setTodos([...todos, newTodo]);
@@ -64,8 +71,12 @@ function App() {
         <h3 className="text-xl font-semibold mb-2">List of Todos:</h3>
         <ul className="list-disc list-inside text-left">
           {todos.map((todo) => (
-            <li key={todo._id}>{todo.content}</li>
-          ))}
+            <li key={todo._id}>{todo.content} <Button
+            label="Done"
+            type="submit"
+            onClick={handleDone}
+          /></li>
+          ))} 
         </ul>
       </div>
     </div>
