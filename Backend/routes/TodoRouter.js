@@ -7,7 +7,7 @@ router.get('/', (req, res)=>
     res.send('All tasks')
 })
 
-router.post('/', newTodo);
+// router.post('/', newTodo);
 
 
 module.exports = router;
