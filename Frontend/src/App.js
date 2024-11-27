@@ -18,11 +18,13 @@ function App() {
     setInput(capitalize(e.target.value.trimStart()));
   };
 
-  const handleDone = (e)=>
-    {
-      
-    }
-
+  const handleDelete = (e) => {
+    e.target.classList.add("strikethrough");
+    console.log("working")
+    // const copy = [...reminder];
+    // copy.splice(id, 1);
+    // setReminder(copy);
+  };
 
 
 
@@ -34,7 +36,7 @@ function App() {
       return;
     }
 
-  
+
 
     const newTodo = {
       id: Date.now(),
@@ -71,15 +73,17 @@ function App() {
         <h3 className="text-xl font-semibold mb-2">List of Todos:</h3>
         <ul className="list-disc list-inside text-left">
           {todos.map((todo) => (
-            <li key={todo._id}>{todo.content} <Button
-            label="Done"
-            type="submit"
-            onClick={handleDone}
-          /></li>
-          ))} 
+            <div
+            key={todo.id}
+              onClick={(e) => handleDelete(e, todo.id)}
+            >
+            </div>
+          ))}
         </ul>
+
       </div>
     </div>
+
   );
 }
 
