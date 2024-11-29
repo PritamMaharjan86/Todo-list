@@ -2,6 +2,7 @@ import './App.css';
 import Input from './components/input';
 import Button from './components/button';
 import React, { useState } from 'react';
+import { MdDeleteForever } from "react-icons/md";
 
 function App() {
   const [input, setInput] = useState('');
@@ -73,13 +74,21 @@ function App() {
         <h3 className="text-xl font-semibold mb-2">List of Todos:</h3>
         <ul className="list-disc list-inside text-left">
           {todos.map((todo) => (
-            <div
-            key={todo.id}
-              onClick={(e) => handleDelete(e, todo.id)}
+            <li
+              key={todo.id}
+              className="flex justify-between items-center p-2 border rounded-lg mb-2 bg-white"
             >
-            </div>
+              <span>{todo.content}</span>
+              <button
+                onClick={(e) => handleDelete(e, todo.id)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <MdDeleteForever />
+              </button>
+            </li>
           ))}
         </ul>
+
 
       </div>
     </div>
