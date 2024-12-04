@@ -19,12 +19,9 @@ function App() {
     setInput(capitalize(e.target.value.trimStart()));
   };
 
-  const handleDelete = (e) => {
-    e.target.classList.add("strikethrough");
-    console.log("working")
-    // const copy = [...reminder];
-    // copy.splice(id, 1);
-    // setReminder(copy);
+  const handleDelete = (e, id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+    
   };
 
 
