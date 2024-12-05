@@ -3,6 +3,7 @@ import Input from './components/input';
 import Button from './components/button';
 import React, { useState } from 'react';
 import { MdDeleteForever } from "react-icons/md";
+import { TiTickOutline } from "react-icons/ti";
 
 function App() {
   const [input, setInput] = useState('');
@@ -19,7 +20,7 @@ function App() {
     setInput(capitalize(e.target.value.trimStart()));
   };
 
-  const handleDelete = (e, id) => {
+  const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
     
   };
@@ -46,6 +47,10 @@ function App() {
     setInput('');
   };
 
+  const handleComplete = (id) => {
+    
+  };
+  
 
 
   return (
@@ -68,7 +73,7 @@ function App() {
           />
         </form>
 
-        <h3 className="text-xl font-semibold mb-2">List of Todos:</h3>
+        <h3 className="text-xl font-semibold mb-2">Todos</h3>
         <ul className="list-disc list-inside text-left">
           {todos.map((todo) => (
             <li
