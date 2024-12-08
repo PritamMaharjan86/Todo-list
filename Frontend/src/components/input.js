@@ -9,7 +9,7 @@ const Input = ({ onChange, value, type }) => {
             <div className=''>
                 <input
                     className='border-2 border-black mt-10 p-1 rounded-lg font-TNanti '
-                    placeholder='What'
+                    placeholder='Todo'
                     value={value}
                     onChange={onChange}
                     type={type}

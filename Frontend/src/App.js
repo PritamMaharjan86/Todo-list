@@ -4,16 +4,16 @@ import Button from './components/button';
 import React, { useState } from 'react';
 import { MdDeleteForever } from "react-icons/md";
 import { TiTickOutline } from "react-icons/ti";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [input, setInput] = useState('');
   const [todos, setTodos] = useState([]);
 
-
   const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
-
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -22,20 +22,16 @@ function App() {
 
   const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-    
+    toast.info('Todo deleted!');
   };
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!input.trim()) {
-      alert('Please enter a todo item.');
+      toast.error('Please enter a todo item.');
       return;
     }
-
-
 
     const newTodo = {
       id: Date.now(),
@@ -45,13 +41,15 @@ function App() {
 
     setTodos([...todos, newTodo]);
     setInput('');
+    toast.success('Todo added!');
   };
 
   const handleComplete = (id) => {
-    
+    setTodos(todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+    toast.success('Todo updated!');
   };
-  
-
 
   return (
     <div className="text-lg text-center font-TNanti flex justify-center items-center ">
@@ -60,10 +58,9 @@ function App() {
 
         <form onSubmit={handleSubmit} className="mb-4">
           <Input
-            onChange={handleChange}
             value={input}
+            onChange={handleChange}
             type="text"
-            placeholder="Enter a todo item"
           />
 
           <Button
@@ -78,23 +75,33 @@ function App() {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className="flex justify-between items-center p-2 border rounded-lg mb-2 bg-white"
+              className={`flex justify-between items-center p-2 border rounded-lg mb-2 ${todo.completed ? 'bg-green-200 line-through' : 'bg-white'
+                }`}
             >
               <span>{todo.content}</span>
-              <button
-                onClick={(e) => handleDelete(e, todo.id)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <MdDeleteForever />
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => handleComplete(todo.id)}
+                  className="text-green-500 hover:text-green-700"
+                  aria-label="Mark as completed"
+                >
+                  <TiTickOutline />
+                </button>
+                <button
+                  onClick={() => handleDelete(todo.id)}
+                  className="text-red-500 hover:text-red-700"
+                  aria-label="Delete todo"
+                >
+                  <MdDeleteForever />
+                </button>
+              </div>
             </li>
           ))}
         </ul>
 
-
+        <ToastContainer />
       </div>
     </div>
-
   );
 }
 
