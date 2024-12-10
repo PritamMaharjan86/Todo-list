@@ -22,7 +22,7 @@ function App() {
 
   const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-    toast.info('Todo deleted!');
+    toast.warning('Todo deleted!');
   };
 
   const handleSubmit = (e) => {
@@ -79,7 +79,7 @@ function App() {
                 }`}
             >
               <span>{todo.content}</span>
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 ">
                 <button
                   onClick={() => handleComplete(todo.id)}
                   className="text-green-500 hover:text-green-700"
