@@ -4,6 +4,7 @@ import Button from './components/button';
 import React, { useState } from 'react';
 import { MdDeleteForever } from "react-icons/md";
 import { TiTickOutline } from "react-icons/ti";
+import { MdEdit } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -51,6 +52,12 @@ function App() {
     toast.success('Todo updated!');
   };
 
+  const handleEdit = () => {
+
+  }
+
+
+
   return (
     <div className="text-lg text-center font-TNanti flex justify-center items-center ">
       <div className="border-2 border-black p-10 h-full rounded-lg shadow-2xl bg-slate-100">
@@ -87,6 +94,15 @@ function App() {
                 >
                   <TiTickOutline />
                 </button>
+
+                <button
+                  onClick={() => handleEdit(todo.id)}
+                  className="text-blue-500 hover:text-blue-700"
+                  aria-label="Mark as completed"
+                >
+                  <MdEdit />
+                </button>
+
                 <button
                   onClick={() => handleDelete(todo.id)}
                   className="text-red-500 hover:text-red-700"
