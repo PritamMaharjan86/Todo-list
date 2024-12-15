@@ -52,9 +52,14 @@ function App() {
     toast.success('Todo updated!');
   };
 
-  const handleEdit = () => {
+  const handleEdit = (id) => {
+    setTodos(todos.map((todo) =>
+      todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
+    ));
+  };
 
-  }
+
+
 
 
 
@@ -82,11 +87,25 @@ function App() {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className={`flex justify-between items-center p-2 border rounded-lg mb-2 ${todo.completed ? 'bg-green-200 line-through' : 'bg-white'
-                }`}
+              className={`flex justify-between items-center p-2 border rounded-lg mb-2 
+        ${todo.isEditing ? 'bg-blue-200' : todo.completed ? 'bg-green-200 line-through' : 'bg-white'}`}
             >
-              <span>{todo.content}</span>
-              <div className="flex space-x-2 ">
+              {todo.isEditing ? (
+                <input
+                  type="text"
+                  value={todo.content}
+                  onChange={(e) =>
+                    setTodos(todos.map((t) =>
+                      t.id === todo.id ? { ...t, content: e.target.value } : t
+                    ))
+                  }
+                  className="border p-1 rounded w-full mr-2"
+                />
+              ) : (
+                <span>{todo.content}</span>
+              )}
+
+              <div className="flex space-x-2">
                 <button
                   onClick={() => handleComplete(todo.id)}
                   className="text-green-500 hover:text-green-700"
@@ -98,9 +117,9 @@ function App() {
                 <button
                   onClick={() => handleEdit(todo.id)}
                   className="text-blue-500 hover:text-blue-700"
-                  aria-label="Mark as completed"
+                  aria-label={todo.isEditing ? 'Save changes' : 'Edit todo'}
                 >
-                  <MdEdit />
+                  {todo.isEditing ? 'Save' : <MdEdit />}
                 </button>
 
                 <button
@@ -114,7 +133,6 @@ function App() {
             </li>
           ))}
         </ul>
-
         <ToastContainer />
       </div>
     </div>
