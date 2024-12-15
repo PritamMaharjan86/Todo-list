@@ -8,7 +8,7 @@ const Input = ({ onChange, value, type }) => {
         <div>
             <div className=''>
                 <input
-                    className='border-2 border-black mt-10 p-1 rounded-lg font-TNanti '
+                    className='border-2 border-black mt-10 p-1 rounded-lg font-TNanti text-black '
                     placeholder='Todo'
                     value={value}
                     onChange={onChange}

@@ -64,67 +64,70 @@ function App() {
 
 
   return (
-    <div className="text-lg text-center font-TNanti flex justify-center items-center ">
-      <div className="border-2 border-black p-10 h-full rounded-lg shadow-2xl bg-slate-100">
-        <h1 className="text-2xl font-bold mb-4">Todo List</h1>
+    <div className="font-TNanti text-xl min-h-screen flex items-center justify-center bg-black overflow-hidden relative">
 
-        <form onSubmit={handleSubmit} className="mb-4">
+      <div className="absolute inset-0 z-0 bg-black opacity-90"></div>
+
+      <div className="relative w-full max-w-md p-8 bg-black text-white rounded-lg shadow-lg z-10">
+        <h1 className="text-4xl font-semibold text-center mb-6 ">Todo List</h1>
+
+
+        <form onSubmit={handleSubmit} className="flex mb-6">
           <Input
             value={input}
             onChange={handleChange}
             type="text"
+            placeholder="Add a new task..."
+            className=" flex-grow p-3 border border-gray-700 rounded-md text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          <Button
-            label="Post"
-            type="submit"
-            onClick={handleSubmit}
-          />
         </form>
 
-        <h3 className="text-xl font-semibold mb-2">Todos</h3>
-        <ul className="list-disc list-inside text-left">
+
+        <ul className="space-y-4">
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className={`flex justify-between items-center p-2 border rounded-lg mb-2 
-        ${todo.isEditing ? 'bg-blue-200' : todo.completed ? 'bg-green-200 line-through' : 'bg-white'}`}
+              className={`flex justify-between items-center p-4 border border-gray-700 rounded-md ${todo.completed ? 'bg-gray-800 line-through text-gray-400' : 'bg-black'
+                } transition-all`}
             >
+
               {todo.isEditing ? (
                 <input
                   type="text"
                   value={todo.content}
                   onChange={(e) =>
-                    setTodos(todos.map((t) =>
-                      t.id === todo.id ? { ...t, content: e.target.value } : t
-                    ))
+                    setTodos(
+                      todos.map((t) =>
+                        t.id === todo.id ? { ...t, content: e.target.value } : t
+                      )
+                    )
                   }
-                  className="border p-1 rounded w-full mr-2"
+                  className="flex-grow p-2 border border-gray-700 rounded-md text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               ) : (
-                <span>{todo.content}</span>
+                <span className="text-white">{todo.content}</span>
               )}
 
-              <div className="flex space-x-2">
+
+              <div className="flex space-x-3">
                 <button
                   onClick={() => handleComplete(todo.id)}
-                  className="text-green-500 hover:text-green-700"
+                  className="text-green-500 hover:text-green-600"
                   aria-label="Mark as completed"
                 >
                   <TiTickOutline />
                 </button>
-
                 <button
                   onClick={() => handleEdit(todo.id)}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="text-blue-500 hover:text-blue-600"
                   aria-label={todo.isEditing ? 'Save changes' : 'Edit todo'}
                 >
-                  {todo.isEditing ? 'Save' : <MdEdit />}
+                  <MdEdit />
                 </button>
-
                 <button
                   onClick={() => handleDelete(todo.id)}
-                  className="text-red-500 hover:text-red-700"
+                  className="text-red-500 hover:text-red-600"
                   aria-label="Delete todo"
                 >
                   <MdDeleteForever />
@@ -133,9 +136,12 @@ function App() {
             </li>
           ))}
         </ul>
+
         <ToastContainer />
       </div>
     </div>
+
+
   );
 }
 
