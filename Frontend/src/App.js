@@ -88,7 +88,7 @@ function App() {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className={`flex justify-between items-center p-4 border border-gray-700 rounded-md ${todo.completed ? 'bg-gray-800 line-through text-gray-400' : 'bg-black'
+              className={`flex justify-between items-center p-4 border border-gray-700 rounded-md ${todo.completed ? 'bg-gray-800 decoration-4 line-through text-green-400' : 'bg-black'
                 } transition-all`}
             >
 
