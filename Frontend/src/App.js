@@ -1,10 +1,8 @@
 import './App.css';
 import Input from './components/input';
-import Button from './components/button';
-import React, { useState } from 'react';
-import { MdDeleteForever } from "react-icons/md";
+import { useState } from 'react';
+import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { TiTickOutline } from "react-icons/ti";
-import { MdEdit } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,9 +10,7 @@ function App() {
   const [input, setInput] = useState('');
   const [todos, setTodos] = useState([]);
 
-  const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -28,7 +24,6 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!input.trim()) {
       toast.error('Please enter a todo item.');
       return;
@@ -58,40 +53,32 @@ function App() {
     ));
   };
 
-
-
-
-
-
   return (
-    <div className="font-TNanti text-xl min-h-screen flex items-center justify-center bg-black overflow-hidden relative">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 px-4 py-10 font-sans">
+      <div className="relative w-full max-w-2xl p-8 rounded-3xl shadow-2xl bg-white/10 backdrop-blur-xl border border-white/10 text-white">
+        <h1 className="text-5xl font-bold text-center mb-10 text-white bg-clip-text">
+          Todo Tracker
+        </h1>
 
-      <div className="absolute inset-0 z-0 bg-black opacity-90"></div>
-
-      <div className="relative w-full max-w-md p-8 bg-black text-white rounded-lg shadow-lg z-10">
-        <h1 className="text-4xl font-semibold text-center mb-6 ">Todo List</h1>
-
-
-        <form onSubmit={handleSubmit} className="flex mb-6">
+        <form onSubmit={handleSubmit} className="flex gap-3 mb-8">
           <Input
             value={input}
             onChange={handleChange}
             type="text"
-            placeholder="Add a new task..."
-            className=" flex-grow p-3 border border-gray-700 rounded-md text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="What do you need to do?"
+            className="flex-grow p-3 rounded-xl text-white bg-white/10 placeholder-white/70 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
-
         </form>
 
-
-        <ul className="space-y-4">
+        <ul className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className={`flex justify-between items-center p-4 border border-gray-700 rounded-md ${todo.completed ? 'bg-gray-800 decoration-4 line-through text-green-400' : 'bg-black'
-                } transition-all`}
+              className={`flex justify-between items-center p-4 rounded-2xl transition-all border ${todo.completed
+                  ? 'bg-orange-900/30 border-orange-400/20 text-orange-300 line-through'
+                  : 'bg-white/10 border-white/10'
+                }`}
             >
-
               {todo.isEditing ? (
                 <input
                   type="text"
@@ -103,45 +90,39 @@ function App() {
                       )
                     )
                   }
-                  className="flex-grow p-2 border border-gray-700 rounded-md text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-grow mr-3 p-2 rounded-md bg-black/30 border border-gray-500 text-black focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               ) : (
-                <span className="text-white">{todo.content}</span>
+                <span className="flex-grow">{todo.content}</span>
               )}
 
-
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 ml-4">
                 <button
                   onClick={() => handleComplete(todo.id)}
-                  className="text-green-500 hover:text-green-600"
-                  aria-label="Mark as completed"
+                  className="hover:scale-110 transition text-orange-100 hover:text-green-400"
                 >
-                  <TiTickOutline />
+                  <TiTickOutline size={22} />
                 </button>
                 <button
                   onClick={() => handleEdit(todo.id)}
-                  className="text-blue-500 hover:text-blue-600"
-                  aria-label={todo.isEditing ? 'Save changes' : 'Edit todo'}
+                  className="hover:scale-110 transition text-orange-100 hover:text-blue-500"
                 >
-                  <MdEdit />
+                  <MdEdit size={22} />
                 </button>
                 <button
                   onClick={() => handleDelete(todo.id)}
-                  className="text-red-500 hover:text-red-600"
-                  aria-label="Delete todo"
+                  className="hover:scale-110 transition text-orange-100 hover:text-red-600"
                 >
-                  <MdDeleteForever />
+                  <MdDeleteForever size={22} />
                 </button>
               </div>
             </li>
           ))}
         </ul>
 
-        <ToastContainer />
+        <ToastContainer theme="dark" />
       </div>
     </div>
-
-
   );
 }
 
