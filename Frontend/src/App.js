@@ -54,19 +54,21 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 px-4 py-10 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 px-4 py-10 ">
+      <ToastContainer theme="dark" position='top-center' />
+
       <div className="relative w-full max-w-2xl p-8 rounded-3xl shadow-2xl bg-white/10 backdrop-blur-xl border border-white/10 text-white">
-        <h1 className="text-5xl font-bold text-center mb-10 text-white bg-clip-text">
+        <h1 className="text-5xl font-bold font-Kind text-center mb-10 text-white bg-clip-text drop-shadow-xl">
           Todo Tracker
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex gap-3 mb-8">
+        <form onSubmit={handleSubmit} className="flex gap-3 mb-8 w-1/3 ">
           <Input
             value={input}
             onChange={handleChange}
+            placeholder={'Remind you anything ?'}
             type="text"
-            placeholder="What do you need to do?"
-            className="flex-grow p-3 rounded-xl text-white bg-white/10 placeholder-white/70 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className=" shadow-xl flex-grow p-3 font-Avocado rounded-lg tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
         </form>
 
@@ -75,8 +77,8 @@ function App() {
             <li
               key={todo.id}
               className={`flex justify-between items-center p-4 rounded-2xl transition-all border ${todo.completed
-                  ? 'bg-orange-900/30 border-orange-400/20 text-orange-300 line-through'
-                  : 'bg-white/10 border-white/10'
+                ? 'bg-orange-900/30 border-orange-400/20 text-orange-300 line-through'
+                : 'bg-white/10 border-white/10'
                 }`}
             >
               {todo.isEditing ? (
@@ -93,7 +95,10 @@ function App() {
                   className="flex-grow mr-3 p-2 rounded-md bg-black/30 border border-gray-500 text-black focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               ) : (
-                <span className="flex-grow">{todo.content}</span>
+                <span className={`flex-grow text-orange-100 font-Avocado text-lg tracking-wide`}>
+                  {todo.content}
+                </span>
+
               )}
 
               <div className="flex space-x-3 ml-4">
@@ -120,7 +125,7 @@ function App() {
           ))}
         </ul>
 
-        <ToastContainer theme="dark" />
+
       </div>
     </div>
   );

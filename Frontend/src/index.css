@@ -6,3 +6,14 @@
   font-family: "TNanti";
   src: url("../src/fonts/TNanti-Demo.otf");
 }
+
+@font-face {
+  font-family: "Kind";
+  src: url("../src/fonts/Kind\ Daily.ttf");
+}
+
+
+@font-face {
+  font-family: "Avocado";
+  src: url("../src/fonts/Hello\ Avocado.ttf");
+}

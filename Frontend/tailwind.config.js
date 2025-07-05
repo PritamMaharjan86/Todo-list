@@ -5,6 +5,8 @@ module.exports = {
     fontFamily:
     {
       TNanti: ['TNanti', 'sans-serif'],
+      Kind:['Kind'],
+      Avocado:['Avocado'],
 
     },
     extend: {},

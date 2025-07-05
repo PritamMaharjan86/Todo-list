@@ -1,22 +1,20 @@
 import React from 'react'
 
-const Input = ({ onChange, value, type }) => {
+const Input = ({ onChange, value, type, placeholder, className }) => {
 
 
 
     return (
-        <div>
-            <div className=''>
+        <>
                 <input
-                    className='border-2 border-black mt-10 p-1 rounded-lg font-TNanti text-black '
-                    placeholder='Todo'
+                    className={className}
+                    placeholder={placeholder}
                     value={value}
                     onChange={onChange}
                     type={type}
                 />
 
-            </div>
-        </div>
+        </>
     )
 }
 
