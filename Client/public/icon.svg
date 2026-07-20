@@ -1,8 +1,8 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366F1"/>
-      <stop offset="100%" stop-color="#8B5CF6"/>
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
     </linearGradient>
   </defs>
 
@@ -20,12 +20,12 @@
   <!-- Row 1 (checked) -->
   <rect x="168" y="164" width="32" height="32" rx="8" fill="#10B981"/>
   <path d="M176 180 L186 190 L200 172" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect x="216" y="172" width="128" height="16" rx="8" fill="#C7D2FE"/>
+  <rect x="216" y="172" width="128" height="16" rx="8" fill="#FED7AA"/>
 
   <!-- Row 2 (checked) -->
   <rect x="168" y="228" width="32" height="32" rx="8" fill="#10B981"/>
   <path d="M176 244 L186 254 L200 236" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect x="216" y="236" width="96" height="16" rx="8" fill="#C7D2FE"/>
+  <rect x="216" y="236" width="96" height="16" rx="8" fill="#FED7AA"/>
 
   <!-- Row 3 (unchecked) -->
   <rect x="168" y="292" width="32" height="32" rx="8" fill="none" stroke="#D1D5DB" stroke-width="4"/>
