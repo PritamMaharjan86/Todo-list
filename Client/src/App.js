@@ -1,73 +1,83 @@
-import './App.css';
-import Input from './components/input';
-import { useState } from 'react';
+import "./App.css";
+import Input from "./components/input";
+import { useState } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { TiTickOutline } from "react-icons/ti";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function App() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
 
-  const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+  const capitalize = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
 
   const handleChange = (e) => {
     e.preventDefault();
     setInput(capitalize(e.target.value.trimStart()));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) {
-      toast.error('Please enter a todo item.');
+      toast.error("Please enter a todo item.");
       return;
     }
 
+    const response = await axios.post("http://localhost:3001/todos", {
+      title: input.trim(),
+    });
+
     const newTodo = {
-      id: Date.now(),
-      content: input.trim(),
+      id: response.data.id,
+      content: response.data.title,
       completed: false,
       isEditing: false,
       isDeleting: false, // add this
     };
 
     setTodos([...todos, newTodo]);
-    setInput('');
-    toast.success('Todo added!');
+    setInput("");
+    toast.success("Todo added!");
   };
 
   const handleDelete = (id) => {
     // Mark as deleting first
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, isDeleting: true } : todo
-      )
+        todo.id === id ? { ...todo, isDeleting: true } : todo,
+      ),
     );
 
     // After animation delay, actually delete
     setTimeout(() => {
       setTodos((prev) => prev.filter((todo) => todo.id !== id));
-      toast.warning('Todo deleted!');
+      toast.warning("Todo deleted!");
     }, 800);
   };
 
   const handleComplete = (id) => {
-    setTodos(todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-    toast.success('Todo updated!');
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
+    toast.success("Todo updated!");
   };
 
   const handleEdit = (id) => {
-    setTodos(todos.map((todo) =>
-      todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
-    ));
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo,
+      ),
+    );
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 px-4 py-10">
-      <ToastContainer theme="dark" position='top-center' />
+      <ToastContainer theme="dark" position="top-center" />
 
       <div className="relative w-full max-w-2xl p-8 rounded-3xl shadow-2xl bg-white/10 backdrop-blur-xl border border-white/10 text-white">
         <h1 className="text-5xl font-bold font-Kind text-center mb-10 text-white bg-clip-text drop-shadow-xl">
@@ -78,7 +88,7 @@ function App() {
           <Input
             value={input}
             onChange={handleChange}
-            placeholder={'Remind you anything ?'}
+            placeholder={"Remind you anything ?"}
             type="text"
             className="shadow-xl flex-grow p-3 font-Avocado rounded-lg tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
@@ -89,53 +99,52 @@ function App() {
             <li
               key={todo.id}
               className={`flex justify-between items-center p-4 rounded-2xl transition-all border transform duration-300 ease-in-out 
-                ${todo.isDeleting ? 'bg-red-800 translate-x-full opacity-0' : ''
+                ${
+                  todo.isDeleting ? "bg-red-800 translate-x-full opacity-0" : ""
                 } 
-                ${todo.isEditing
-                  ? 'bg-blue-400 text-white font-Avocado border-blue-600'
-                  : todo.completed
-                    ? 'bg-green-600 text-orange-300 border-orange-400/20 line-through decoration-green-600 decoration-2'
-                    : 'bg-white/10 border-white/10 text-white'
+                ${
+                  todo.isEditing ?
+                    "bg-blue-400 text-white font-Avocado border-blue-600"
+                  : todo.completed ?
+                    "bg-green-600 text-orange-300 border-orange-400/20 line-through decoration-green-600 decoration-2"
+                  : "bg-white/10 border-white/10 text-white"
                 }
               
-              `}
-            >
-              {todo.isEditing ? (
+              `}>
+              {todo.isEditing ?
                 <input
                   type="text"
                   value={todo.content}
                   onChange={(e) =>
                     setTodos(
                       todos.map((t) =>
-                        t.id === todo.id ? { ...t, content: e.target.value } : t
-                      )
+                        t.id === todo.id ?
+                          { ...t, content: e.target.value }
+                        : t,
+                      ),
                     )
                   }
                   className=" text-blue-600 w-full bg-blue-200 p-2 rounded-3xl"
                 />
-              ) : (
-                <span className="flex-grow text-orange-100 font-Avocado text-lg tracking-wide">
+              : <span className="flex-grow text-orange-100 font-Avocado text-lg tracking-wide">
                   {todo.content}
                 </span>
-              )}
+              }
 
               <div className="flex space-x-3 ml-4">
                 <button
                   onClick={() => handleComplete(todo.id)}
-                  className="hover:scale-110 transition text-orange-100 hover:text-green-400"
-                >
+                  className="hover:scale-110 transition text-orange-100 hover:text-green-400">
                   <TiTickOutline size={22} />
                 </button>
                 <button
                   onClick={() => handleEdit(todo.id)}
-                  className="hover:scale-110 transition text-orange-100 hover:text-blue-500"
-                >
+                  className="hover:scale-110 transition text-orange-100 hover:text-blue-500">
                   <MdEdit size={22} />
                 </button>
                 <button
                   onClick={() => handleDelete(todo.id)}
-                  className="hover:scale-110 transition text-orange-100 hover:text-red-500"
-                >
+                  className="hover:scale-110 transition text-orange-100 hover:text-red-500">
                   <MdDeleteForever size={22} />
                 </button>
               </div>
