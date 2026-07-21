@@ -1,6 +1,6 @@
 import "./App.css";
 import Input from "./components/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { TiTickOutline } from "react-icons/ti";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,19 @@ import axios from "axios";
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/todos");
+        setTodos(response.data);
+      } catch (err) {
+        console.log("Error on fetching todo list", err);
+      }
+    };
+
+    getList();
+  }, []);
 
   const capitalize = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
@@ -32,13 +45,13 @@ function App() {
 
     const newTodo = {
       id: response.data.id,
-      content: response.data.title,
+      title: response.data.title,
       completed: false,
       isEditing: false,
-      isDeleting: false, // add this
+      isDeleting: false,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prev) => [...prev, newTodo]);
     setInput("");
     toast.success("Todo added!");
   };
@@ -114,20 +127,18 @@ function App() {
               {todo.isEditing ?
                 <input
                   type="text"
-                  value={todo.content}
+                  value={todo.title}
                   onChange={(e) =>
                     setTodos(
                       todos.map((t) =>
-                        t.id === todo.id ?
-                          { ...t, content: e.target.value }
-                        : t,
+                        t.id === todo.id ? { ...t, title: e.target.value } : t,
                       ),
                     )
                   }
                   className=" text-blue-600 w-full bg-blue-200 p-2 rounded-3xl"
                 />
               : <span className="flex-grow text-orange-100 font-Avocado text-lg tracking-wide">
-                  {todo.content}
+                  {todo.title}
                 </span>
               }
 
