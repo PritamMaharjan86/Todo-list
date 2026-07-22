@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config.js";
-import database from "./database.js";
+import database from "./config/database.js";
+import todoRoutes from "./routes/todoRoutes";
 
 const PORT = process.env.PORT;
 
@@ -14,34 +15,7 @@ app.get("/", (req, res) => {
   res.send("Server is working...");
 });
 
-app.post("/todos", (req, res) => {
-  const { title } = req.body;
-
-  database.query(
-    "INSERT INTO todos(title) VALUES(?)",
-    [title],
-    (err, result) => {
-      if (err) {
-        return res.status(500).json(err);
-      }
-
-      res.json({
-        id: result.insertId,
-        title: title,
-      });
-    },
-  );
-});
-
-app.get("/todos", (req, res) => {
-  database.query("SELECT * FROM todos", (err, result) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-
-    res.json(result);
-  });
-});
+app.use("/todos", todoRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on ${PORT}. `);
