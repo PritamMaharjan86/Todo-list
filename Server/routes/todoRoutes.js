@@ -1,11 +1,17 @@
 import express from "express";
 
-import { createTodo, getTodo } from "../models/todoModel";
+import {
+  createTodo,
+  getTodo,
+  deleteTodo,
+} from "../controllers/todoController.js";
 
-const router = express.Router;
+const router = express.Router();
 
 router.post("/", createTodo);
 
 router.get("/", getTodo);
+
+router.delete("/:id", deleteTodo);
 
 export default router;

@@ -56,19 +56,19 @@ function App() {
     toast.success("Todo added!");
   };
 
-  const handleDelete = (id) => {
-    // Mark as deleting first
-    setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, isDeleting: true } : todo,
-      ),
-    );
-
-    // After animation delay, actually delete
-    setTimeout(() => {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/todos/${id}`);
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, isDeleting: true } : todo,
+        ),
+      );
+      console.log("Deleted");
       toast.warning("Todo deleted!");
-    }, 800);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleComplete = (id) => {

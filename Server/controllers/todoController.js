@@ -1,4 +1,4 @@
-import * as TodoModel from "../models/todoModel";
+import * as TodoModel from "../models/todoModel.js";
 
 export const createTodo = (req, res) => {
   const { title } = req.body;
@@ -22,5 +22,16 @@ export const getTodo = (req, res) => {
     }
 
     res.json(result);
+  });
+};
+
+export const deleteTodo = (req, res) => {
+  const { id } = req.params;
+  TodoModel.deleteTodo(id, (err) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    res.status(200).json({ message: "Todo deleted successfully." });
   });
 };
