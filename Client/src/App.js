@@ -137,7 +137,7 @@ function App() {
                   }
                   className=" text-blue-600 w-full bg-blue-200 p-2 rounded-3xl"
                 />
-              : <span className="flex-grow text-orange-100 font-Avocado text-lg tracking-wide">
+              : <span className="flex-grow text-white font-Avocado text-lg tracking-wide">
                   {todo.title}
                 </span>
               }
