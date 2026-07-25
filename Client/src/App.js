@@ -97,13 +97,13 @@ function App() {
           Todo Tracker
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex gap-3 mb-8 w-1/3">
+        <form onSubmit={handleSubmit} className="flex gap-3 mb-8 w-1/2">
           <Input
             value={input}
             onChange={handleChange}
             placeholder={"Remind you anything ?"}
             type="text"
-            className="shadow-xl flex-grow p-3 font-Avocado rounded-lg tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="shadow-xl w-full p-5 font-Avocado rounded-lg text-xl tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
         </form>
 
@@ -111,7 +111,7 @@ function App() {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className={`flex justify-between items-center p-4 rounded-2xl transition-all border transform duration-300 ease-in-out 
+              className={`flex justify-between items-center px-4 py-2 rounded-2xl transition-all border transform duration-300 ease-in-out 
                 ${
                   todo.isDeleting ? "bg-red-800 translate-x-full opacity-0" : ""
                 } 
