@@ -67,17 +67,23 @@ function App() {
       console.log("Deleted");
       toast.warning("Todo deleted!");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
-  const handleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    );
-    toast.success("Todo updated!");
+  const handleComplete = async (id) => {
+    try {
+      await axios.patch(`http://localhost:3001/todos/${id}`);
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+        ),
+      );
+      console.log("working button");
+      toast.success("Todo updated!");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleEdit = (id) => {

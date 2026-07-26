@@ -35,3 +35,14 @@ export const deleteTodo = (req, res) => {
     res.status(200).json({ message: "Todo deleted successfully." });
   });
 };
+
+export const updateTodo = (req, res) => {
+  const { id } = req.params;
+  TodoModel.updateTodo(id, (err) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    res.status(200).json({ message: "Todo updated successfully." });
+  });
+};
