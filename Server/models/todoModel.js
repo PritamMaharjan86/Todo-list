@@ -14,7 +14,7 @@ export const deleteTodo = (id, callback) => {
 
 export const updateTodo = (id, callback) => {
   database.query(
-    "update todos set completed = 1 - completed where id = ?",
+    "update todos set completed = not completed where id = ?",
     [id],
     callback,
   );
