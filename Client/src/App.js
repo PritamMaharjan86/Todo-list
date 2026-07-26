@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
+const REACT_APP_BACKEND_API = process.env.REACT_APP_BACKEND_API; //IF CREATE REACT APP PROJECT THEN SHOULD STARTS WITH REACT_APP
+
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
@@ -14,7 +16,8 @@ function App() {
   useEffect(() => {
     const getList = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/todos");
+        const response = await axios.get(`${REACT_APP_BACKEND_API}/todos`);
+
         setTodos(response.data);
       } catch (err) {
         console.log("Error on fetching todo list", err);
@@ -39,7 +42,7 @@ function App() {
       return;
     }
 
-    const response = await axios.post("http://localhost:3001/todos", {
+    const response = await axios.post(`${REACT_APP_BACKEND_API}/todos`, {
       title: input.trim(),
     });
 
@@ -58,7 +61,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/todos/${id}`);
+      await axios.delete(`${REACT_APP_BACKEND_API}/todos/${id}`);
       setTodos((prev) =>
         prev.map((todo) =>
           todo.id === id ? { ...todo, isDeleting: true } : todo,
@@ -73,7 +76,7 @@ function App() {
 
   const handleComplete = async (id) => {
     try {
-      await axios.patch(`http://localhost:3001/todos/${id}`);
+      await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`);
       setTodos(
         todos.map((todo) =>
           todo.id === id ? { ...todo, completed: !todo.completed } : todo,
