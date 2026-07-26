@@ -11,3 +11,11 @@ export const getTodo = (callback) => {
 export const deleteTodo = (id, callback) => {
   database.query("delete from todos where id = ?", [id], callback);
 };
+
+export const updateTodo = (id, callback) => {
+  database.query(
+    "update todos set completed = 1 - completed where id = ?",
+    [id],
+    callback,
+  );
+};
