@@ -62,11 +62,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${REACT_APP_BACKEND_API}/todos/${id}`);
-      setTodos((prev) =>
-        prev.map((todo) =>
-          todo.id === id ? { ...todo, isDeleting: true } : todo,
-        ),
-      );
+      setTodos((prev) => prev.filter((todo) => todo.id !== id));
       console.log("Deleted");
       toast.warning("Todo deleted!");
     } catch (err) {
@@ -112,7 +108,7 @@ function App() {
             onChange={handleChange}
             placeholder={"Remind you anything ?"}
             type="text"
-            className="shadow-xl w-full p-5 font-Avocado rounded-lg text-xl tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="shadow-xl w-full p-3 font-Avocado rounded-lg text-xl tracking-wider placeholder:text-orange-100 placeholder:text-md text-orange-100 bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
         </form>
 
@@ -121,9 +117,7 @@ function App() {
             <li
               key={todo.id}
               className={`flex justify-between items-center px-4 py-2 rounded-2xl transition-all border transform duration-300 ease-in-out 
-                ${
-                  todo.isDeleting ? "bg-red-800 translate-x-full opacity-0" : ""
-                } 
+                ${todo.isDeleting ? "bg-red-800 line-through decoration-red-800 " : ""} 
                 ${
                   todo.isEditing ?
                     "bg-blue-400 text-white font-Avocado border-blue-600"
