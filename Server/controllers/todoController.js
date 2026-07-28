@@ -46,3 +46,19 @@ export const updateTodo = (req, res) => {
     res.status(200).json({ message: "Todo updated successfully." });
   });
 };
+
+export const editTodo = (req, res) => {
+  const { id } = req.params;
+  const { newTitle } = req.body;
+
+  TodoModel.editTodo(id, newTitle, (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    res.status(200).json({
+      message: "Successfully edited.",
+      result,
+    });
+  });
+};

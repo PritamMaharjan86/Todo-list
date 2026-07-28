@@ -19,3 +19,11 @@ export const updateTodo = (id, callback) => {
     callback,
   );
 };
+
+export const editTodo = (id, newTitle, callback) => {
+  database.query(
+    "update todos set title = ? where id = ?",
+    [newTitle, id],
+    callback,
+  );
+};
