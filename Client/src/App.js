@@ -85,12 +85,20 @@ function App() {
     }
   };
 
-  const handleEdit = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo,
-      ),
-    );
+  const handleEdit = async (id) => {
+    const todo = todos.find((todo) => todo.id === id); //searching thru todo array list and finding out the todo with same id as the one that is being edited
+    try {
+      await axios.put(`${REACT_APP_BACKEND_API}/todos/${id}`, {
+        newTitle: todo.title, //sending edited todo as newTitle to server / database
+      });
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo,
+        ),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
