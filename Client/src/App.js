@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   const capitalize = (string) =>
-    string.charAt(0).toUpperCase() + string.slice(1);
+    string.charAt(0).toUpperCase() + string.slice(1); //take first letter of the string and change it into uppercase and add to remaining string
 
   const handleChange = (e) => {
     e.preventDefault();
