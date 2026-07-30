@@ -28,22 +28,22 @@ function App() {
   }, []);
 
   const capitalize = (string) =>
-    string.charAt(0).toUpperCase() + string.slice(1);
+    string.charAt(0).toUpperCase() + string.slice(1); //take first letter of the string and change it into uppercase and add to remaining string
 
   const handleChange = (e) => {
     e.preventDefault();
-    setInput(capitalize(e.target.value.trimStart()));
+    setInput(capitalize(e.target.value.trimStart())); //TO CAPITALIZE THE FIRST LETTER OF THE INPUT FIELD
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim()) {
+    if (!input) {
       toast.error("Please enter a todo item.");
       return;
     }
 
     const response = await axios.post(`${REACT_APP_BACKEND_API}/todos`, {
-      title: input.trim(),
+      title: input.trim(), //TRIM REMOVES THE SPACE FROM FRONT AND END OF THE INPUT
     });
 
     const newTodo = {
