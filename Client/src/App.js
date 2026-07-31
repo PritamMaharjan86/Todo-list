@@ -73,7 +73,9 @@ function App() {
   const handleComplete = async (id) => {
     try {
       await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`);
+      //setting todos as
       setTodos(
+        //get todos array
         todos.map((todo) =>
           todo.id === id ? { ...todo, completed: !todo.completed } : todo,
         ),
