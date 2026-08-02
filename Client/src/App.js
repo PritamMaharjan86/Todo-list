@@ -154,6 +154,13 @@ function App() {
                   {todo.title}
                 </span>
               }
+              <div>
+                <select className="text-black rounded-xl px-3 py-1 text-sm font-Avocado shadow-sm shadow-black">
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </div>
 
               <div className="flex space-x-3 ml-4">
                 <button
