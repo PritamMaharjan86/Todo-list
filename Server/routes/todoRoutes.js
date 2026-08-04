@@ -7,6 +7,7 @@ import {
   updateTodo,
   editTodo,
 } from "../controllers/todoController.js";
+import { priorityTodo } from "../models/todoModel.js";
 
 const router = express.Router();
 
@@ -19,5 +20,7 @@ router.delete("/:id", deleteTodo);
 router.patch("/:id", updateTodo);
 
 router.put("/:id", editTodo);
+
+router.put("/:id", priorityTodo);
 
 export default router;

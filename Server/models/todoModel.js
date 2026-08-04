@@ -27,3 +27,7 @@ export const editTodo = (id, newTitle, callback) => {
     callback,
   );
 };
+
+export const priorityTodo = (id, priority, callback) => {
+  database.query("update todos set priority = ? where id = ?");
+};
