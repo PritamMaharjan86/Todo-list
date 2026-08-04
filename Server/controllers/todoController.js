@@ -62,3 +62,18 @@ export const editTodo = (req, res) => {
     });
   });
 };
+
+export const priorityTodo = (req, res) => {
+  const { id } = req.params;
+  const { priority } = req.body;
+
+  TodoModel.priorityTodo(id, priority, (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    res.status(200).json({
+      message: "Successfully edited.",
+    });
+  });
+};
