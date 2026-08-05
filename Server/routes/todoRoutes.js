@@ -6,8 +6,8 @@ import {
   deleteTodo,
   updateTodo,
   editTodo,
+  priorityTodo,
 } from "../controllers/todoController.js";
-import { priorityTodo } from "../models/todoModel.js";
 
 const router = express.Router();
 
