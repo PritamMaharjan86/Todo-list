@@ -72,7 +72,10 @@ function App() {
 
   const handleComplete = async (id) => {
     try {
-      await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`);
+      const todo = todos.find((todo) => todo.id === id);
+      await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`, {
+        completed: !todo.completed,
+      });
       //setting todos as
       setTodos(
         //get todos array
@@ -90,8 +93,8 @@ function App() {
   const handleEdit = async (id) => {
     const todo = todos.find((todo) => todo.id === id); //searching thru todo array list and finding out the todo with same id as the one that is being edited
     try {
-      await axios.put(`${REACT_APP_BACKEND_API}/todos/${id}`, {
-        newTitle: todo.title, //sending edited todo as newTitle to server / database
+      await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`, {
+        title: todo.title, //sending edited todo as newTitle to server / database
       });
       setTodos(
         todos.map((todo) =>

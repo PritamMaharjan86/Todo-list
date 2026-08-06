@@ -12,22 +12,14 @@ export const deleteTodo = (id, callback) => {
   database.query("delete from todos where id = ?", [id], callback);
 };
 
-export const updateTodo = (id, callback) => {
-  database.query(
-    "update todos set completed = not completed where id = ?",
-    [id],
-    callback,
-  );
-};
+export const updateTodo = (id, updates, callback) => {
+  const fields = Object.keys(updates);
+  const values = Object.values(updates);
+  const query = `
+    UPDATE todos 
+    SET ${fields.map((field) => `${field} = ?`).join(", ")}
+    WHERE id = ?
+  `;
 
-export const editTodo = (id, newTitle, callback) => {
-  database.query(
-    "update todos set title = ? where id = ?",
-    [newTitle, id],
-    callback,
-  );
-};
-
-export const priorityTodo = (id, priority, callback) => {
-  database.query("update todos set priority = ? where id = ?");
+  database.query(query, [...values, id], callback);
 };

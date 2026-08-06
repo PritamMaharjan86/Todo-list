@@ -38,42 +38,23 @@ export const deleteTodo = (req, res) => {
 
 export const updateTodo = (req, res) => {
   const { id } = req.params;
-  TodoModel.updateTodo(id, (err) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
+  const updates = req.body;
 
-    res.status(200).json({ message: "Todo updated successfully." });
-  });
-};
-
-export const editTodo = (req, res) => {
-  const { id } = req.params;
-  const { newTitle } = req.body;
-
-  TodoModel.editTodo(id, newTitle, (err, result) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-
-    res.status(200).json({
-      message: "Successfully edited.",
-      result,
+  // Check if request body is empty
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({
+      message: "No fields to update",
     });
-  });
-};
+  }
 
-export const priorityTodo = (req, res) => {
-  const { id } = req.params;
-  const { priority } = req.body;
-
-  TodoModel.priorityTodo(id, priority, (err, result) => {
+  TodoModel.updateTodo(id, updates, (err, result) => {
     if (err) {
       return res.status(500).json(err);
     }
 
     res.status(200).json({
-      message: "Successfully edited.",
+      message: "Todo updated successfully.",
+      result,
     });
   });
 };
