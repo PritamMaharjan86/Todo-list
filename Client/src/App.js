@@ -90,6 +90,22 @@ function App() {
     }
   };
 
+  const handlePriority = async (id, priority) => {
+    try {
+      await axios.patch(`${REACT_APP_BACKEND_API}/todos/${id}`, {
+        priority: priority,
+      });
+
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, priority: priority } : todo,
+        ),
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleEdit = async (id) => {
     const todo = todos.find((todo) => todo.id === id); //searching thru todo array list and finding out the todo with same id as the one that is being edited
     try {
@@ -158,10 +174,17 @@ function App() {
                 </span>
               }
               <div>
-                <select className="text-black rounded-xl px-3 py-1 text-sm font-Avocado shadow-sm shadow-black">
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
+                <select
+                  className={`rounded-lg px-3 py-1 text-md font-Avocado shadow-sm shadow-black ${
+                    todo.priority === "Medium" ? "text-yellow-500"
+                    : todo.priority === "Low" ? "text-green-500"
+                    : "text-red-500"
+                  } `}
+                  value={todo.priority || "High"} //set default priority high here and on the database query as well
+                  onChange={(e) => handlePriority(todo.id, e.target.value)}>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
                 </select>
               </div>
 
